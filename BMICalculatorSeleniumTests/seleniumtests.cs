@@ -39,7 +39,7 @@ namespace BMICalculatorSeleniumTests
 
         [TestMethod]
         [Obsolete]
-        public void SampleFunctionalTest1()
+        public void TestUnderWeight()
         {
             var webAppUrl = "";
             try
@@ -57,12 +57,47 @@ namespace BMICalculatorSeleniumTests
             
             //Arrange     
             
-            BMI bmi = new BMI() { WeightStones = 15, WeightPounds = 4, HeightFeet = 5, HeightInches = 7 };
+            BMI bmi = new BMI() { WeightStones = 5, WeightPounds = 7, HeightFeet = 5, HeightInches = 3};
 
            // WebDriverWait wait = new WebDriverWait(driver,( 20);
 
             driver.Navigate().GoToUrl(webAppUrl);
            // driver.Manage().Window.Size = new System.Drawing.Size(1052, 807);
+            //driver.SwitchTo().DefaultContent();
+            driver.FindElement(By.Id("WeightStones")).Click();
+            driver.FindElement(By.Id("WeightStones")).SendKeys("5");
+            driver.FindElement(By.Id("WeightPounds")).Click();
+            driver.FindElement(By.Id("WeightPounds")).SendKeys("7");
+            driver.FindElement(By.Id("HeightFeet")).Click();
+            driver.FindElement(By.Id("HeightFeet")).SendKeys("5");
+            driver.FindElement(By.Id("HeightInches")).Click();
+            driver.FindElement(By.Id("HeightInches")).SendKeys("3");
+            driver.FindElement(By.CssSelector(".btn")).Click();
+            string actualvalue= driver.FindElement(By.Id("BMIValue")).Text;
+            string actualcategory= driver.FindElement(By.Id("BMICategory")).Text;
+
+            Assert.AreEqual("Your BMI is " + Math.Round(bmi.BMIValue,2).ToString(), actualvalue);
+            Assert.AreEqual("Your BMI Category is " + BMICategory.Underweight, actualcategory);
+           // Assert.AreEqual(bmi.BMICategory, BMICategory.Obese);
+        }
+        [TestMethod]
+        [Obsolete]
+        public void TestObese()
+        {
+            var webAppUrl = "";
+            try
+            {
+                webAppUrl = testContext.Properties["webAppUrl"].ToString();
+            }
+            catch (Exception)
+            {
+                webAppUrl = "http://localhost:50433/";
+            }
+                 
+
+            BMI bmi = new BMI() { WeightStones = 15, WeightPounds = 4, HeightFeet = 5, HeightInches = 7 };
+
+            driver.Navigate().GoToUrl(webAppUrl);
             //driver.SwitchTo().DefaultContent();
             driver.FindElement(By.Id("WeightStones")).Click();
             driver.FindElement(By.Id("WeightStones")).SendKeys("15");
@@ -73,13 +108,87 @@ namespace BMICalculatorSeleniumTests
             driver.FindElement(By.Id("HeightInches")).Click();
             driver.FindElement(By.Id("HeightInches")).SendKeys("7");
             driver.FindElement(By.CssSelector(".btn")).Click();
-            string actualvalue= driver.FindElement(By.Id("BMIValue")).Text;
-            string actualcategory= driver.FindElement(By.Id("BMICategory")).Text;
+            string actualvalue = driver.FindElement(By.Id("BMIValue")).Text;
+            string actualcategory = driver.FindElement(By.Id("BMICategory")).Text;
 
-            //Assert.AreEqual("Your BMI is " + bmi.BMIValue.ToString(), actualvalue);
-            Assert.AreEqual("Bad Your BMI Category is " + BMICategory.Obese, actualcategory);
-           // Assert.AreEqual(bmi.BMICategory, BMICategory.Obese);
+            Assert.AreEqual("Your BMI is " + Math.Round(bmi.BMIValue, 2).ToString(), actualvalue);
+            Assert.AreEqual("Your BMI Category is " + BMICategory.Obese, actualcategory);
+            // Assert.AreEqual(bmi.BMICategory, BMICategory.Obese);
         }
+
+        [TestMethod]
+        [Obsolete]
+        public void TestOverWeight()
+        {
+            var webAppUrl = "";
+            try
+            {
+                webAppUrl = testContext.Properties["webAppUrl"].ToString();
+            }
+            catch (Exception)
+            {
+                webAppUrl = "http://localhost:50433/";
+            }
+
+
+            BMI bmi = new BMI() { WeightStones = 11, WeightPounds = 5, HeightFeet = 5, HeightInches = 3 };
+
+            driver.Navigate().GoToUrl(webAppUrl);
+            //driver.SwitchTo().DefaultContent();
+            driver.FindElement(By.Id("WeightStones")).Click();
+            driver.FindElement(By.Id("WeightStones")).SendKeys("11");
+            driver.FindElement(By.Id("WeightPounds")).Click();
+            driver.FindElement(By.Id("WeightPounds")).SendKeys("5");
+            driver.FindElement(By.Id("HeightFeet")).Click();
+            driver.FindElement(By.Id("HeightFeet")).SendKeys("5");
+            driver.FindElement(By.Id("HeightInches")).Click();
+            driver.FindElement(By.Id("HeightInches")).SendKeys("3");
+            driver.FindElement(By.CssSelector(".btn")).Click();
+            string actualvalue = driver.FindElement(By.Id("BMIValue")).Text;
+            string actualcategory = driver.FindElement(By.Id("BMICategory")).Text;
+
+            Assert.AreEqual("Your BMI is " + Math.Round(bmi.BMIValue, 2).ToString(), actualvalue);
+            Assert.AreEqual("Your BMI Category is " + BMICategory.Overweight, actualcategory);
+            // Assert.AreEqual(bmi.BMICategory, BMICategory.Obese);
+        }
+
+        [TestMethod]
+        [Obsolete]
+        public void TestNormal()
+        {
+            var webAppUrl = "";
+            try
+            {
+                webAppUrl = testContext.Properties["webAppUrl"].ToString();
+            }
+            catch (Exception)
+            {
+                webAppUrl = "http://localhost:50433/";
+            }
+
+
+            BMI bmi = new BMI() { WeightStones = 11, WeightPounds = 7, HeightFeet = 6, HeightInches = 5 };
+
+            driver.Navigate().GoToUrl(webAppUrl);
+            //driver.SwitchTo().DefaultContent();
+            driver.FindElement(By.Id("WeightStones")).Click();
+            driver.FindElement(By.Id("WeightStones")).SendKeys("11");
+            driver.FindElement(By.Id("WeightPounds")).Click();
+            driver.FindElement(By.Id("WeightPounds")).SendKeys("7");
+            driver.FindElement(By.Id("HeightFeet")).Click();
+            driver.FindElement(By.Id("HeightFeet")).SendKeys("6");
+            driver.FindElement(By.Id("HeightInches")).Click();
+            driver.FindElement(By.Id("HeightInches")).SendKeys("5");
+            driver.FindElement(By.CssSelector(".btn")).Click();
+            string actualvalue = driver.FindElement(By.Id("BMIValue")).Text;
+            string actualcategory = driver.FindElement(By.Id("BMICategory")).Text;
+
+            Assert.AreEqual("Your BMI is " + Math.Round(bmi.BMIValue, 2).ToString(), actualvalue);
+            Assert.AreEqual("Your BMI Category is " + BMICategory.Normal, actualcategory);
+            // Assert.AreEqual(bmi.BMICategory, BMICategory.Obese);
+        }
+
+
 
         private RemoteWebDriver GetChromeDriver()
         {
